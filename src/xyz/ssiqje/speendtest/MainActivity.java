@@ -43,12 +43,15 @@ public class MainActivity extends Activity {
 	private String mConnectedDeviceName;
 	int width;
 	int height;
-	private final Handler mHandler = new Handler() {
+	private final Handler mHandler = new Handler() 
+	{
 
 		@Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(Message msg) 
+		{
             switch (msg.what) {
             case MESSAGE_READ:
+            	Log.w("info", "收到一个消息~~~~~~~~~~~");
                 byte[] readBuf = (byte[]) msg.obj;
                 // construct a string from the valid bytes in the buffer
                 String readMessage = new String(readBuf, 0, msg.arg1);
@@ -67,7 +70,12 @@ public class MainActivity extends Activity {
             case 123:
                 initGameview();
                 break;
+            case 555:
+            	gameview.setFlag(false);
+                break;
             }
+        
+        
         }
     };
 	@Override

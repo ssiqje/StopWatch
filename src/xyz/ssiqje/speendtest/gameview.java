@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.Log;
@@ -70,7 +71,10 @@ public class gameview extends SurfaceView implements SurfaceHolder.Callback2,Run
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		Paint paint=new Paint();
+		Paint darwpaintPaint=new Paint();
+		Paint stringpaint=new Paint();
+		stringpaint.setColor(Color.RED);
+		stringpaint.setTextSize(60);
 		int i=100;
 		try {
 			while(flag)
@@ -79,8 +83,10 @@ public class gameview extends SurfaceView implements SurfaceHolder.Callback2,Run
 				Canvas canvas=holder.lockCanvas();
 				if(canvas!=null)
 				{
-					canvas.drawBitmap(speendtu, new Rect(0, 0, speendtu.getWidth(), speendtu.getHeight()), new Rect(0, 0, displayW, displayH), paint);
-					canvas.drawRect(0, 0, displayW, (float)displayH/100*(i-speendNum), paint);
+					canvas.drawBitmap(speendtu, new Rect(0, 0, speendtu.getWidth(), speendtu.getHeight()), new Rect(0, 0, (int)(displayW*0.8), displayH), darwpaintPaint);
+					canvas.drawRect(0, 0, displayW, (float)displayH/100*(i-speendNum), darwpaintPaint);
+					canvas.drawText(""+speendNum, (float)(displayW*0.8),(float)(displayH/2), stringpaint);
+					Log.i("info", displayW+"~"+(float)(displayW*0.8)+"~"+displayH+"~"+(float)(displayH/2)+"----->"+speendNum);
 				}
 				else {
 					{

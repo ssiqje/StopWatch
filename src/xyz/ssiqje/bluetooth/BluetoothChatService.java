@@ -48,7 +48,7 @@ public class BluetoothChatService {
     private static final String NAME = "BluetoothChat";
 
     // Unique UUID for this application   fa87c0d0-afac-11de-8a39-0800200c9a66   00001101-0000-1000-8000-00805F9B34FB
-    private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    private static final UUID MY_UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
 
     // Member fields
     private final BluetoothAdapter mAdapter;
@@ -309,6 +309,7 @@ public class BluetoothChatService {
 
             // Get a BluetoothSocket for a connection with the
             // given BluetoothDevice
+            Log.w("info", "~~~~~~~~~~~~~>"+device.getAddress().toString());
             try {
                 tmp = device.createRfcommSocketToServiceRecord(MY_UUID);
             } catch (IOException e) {
@@ -338,7 +339,7 @@ public class BluetoothChatService {
                     Log.e(TAG, "unable to close() socket during connection failure", e2);
                 }
                 // Start the service over to restart listening mode
-                BluetoothChatService.this.start();
+                //BluetoothChatService.this.start();
                 return;
             }
 
