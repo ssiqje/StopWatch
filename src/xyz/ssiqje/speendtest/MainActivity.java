@@ -2,10 +2,14 @@ package xyz.ssiqje.speendtest;
 
 import xyz.ssiqje.bluetooth.BluetoothChatService;
 import xyz.ssiqje.bluetooth.DeviceListActivity;
+import xyz.ssiqje.speendtest.anim.Sanim;
 import android.R.integer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -17,6 +21,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -39,10 +47,13 @@ public class MainActivity extends Activity {
     private static final int REQUEST_ENABLE_BT = 2;
     private BluetoothChatService mChatService = null;
 	private BluetoothAdapter mBluetoothAdapter;
-	private gameview gameview=null;
 	private String mConnectedDeviceName;
 	int width;
 	int height;
+	ImageView sdppoint;
+	ImageView wdppoint;
+	int currentangle=0;
+	Sanim sanim=null;
 	private final Handler mHandler = new Handler() 
 	{
 
@@ -51,11 +62,22 @@ public class MainActivity extends Activity {
 		{
             switch (msg.what) {
             case MESSAGE_READ:
-            	Log.w("info", "收到一个消息~~~~~~~~~~~");
+            	Toast.makeText(MainActivity.this, "收到一个消息~~~~~~~~~~~", 1).show();
                 byte[] readBuf = (byte[]) msg.obj;
                 // construct a string from the valid bytes in the buffer
                 String readMessage = new String(readBuf, 0, msg.arg1);
-                gameview.setSpeendNum(Integer.parseInt(readMessage));
+                int newangle=Integer.parseInt(readMessage);
+                if(sdppoint!=null)
+                {
+                	AnimationSet animation=new AnimationSet(true);
+                	RotateAnimation rotate=new RotateAnimation(currentangle, newangle,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+            		rotate.setDuration(3000);
+            		animation.addAnimation(rotate);
+            		animation.setFillAfter(true);
+            		sdppoint.startAnimation(animation);
+            		wdppoint.startAnimation(animation);
+            		currentangle=newangle;
+                }
                 break;
             case MESSAGE_DEVICE_NAME:
                 // save the connected device's name
@@ -70,9 +92,6 @@ public class MainActivity extends Activity {
             case 123:
                 initGameview();
                 break;
-            case 555:
-            	gameview.setFlag(false);
-                break;
             }
         
         
@@ -86,6 +105,7 @@ public class MainActivity extends Activity {
 		DisplayMetrics dm=getResources().getDisplayMetrics();
 		width=dm.widthPixels;
 		height=dm.heightPixels;
+		sanim=new Sanim();
 		setContentView(new welcomeview(this,mHandler, width,height));
 		 // Get local Bluetooth adapter
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -132,8 +152,10 @@ public class MainActivity extends Activity {
 	    }
 	private void initGameview() {
 		// TODO Auto-generated method stub
-		gameview=new gameview(this, width,height);
-		this.setContentView(gameview);
+		//gameview=new gameview(this, width,height);
+		this.setContentView(R.layout.gameview);
+		sdppoint=(ImageView) findViewById(R.id.sdpimg);
+		wdppoint=(ImageView) findViewById(R.id.wdpimg);
 		
 	}
 	@Override
@@ -151,7 +173,6 @@ public class MainActivity extends Activity {
 		case R.id.scan:
 			// Launch the DeviceListActivity to see devices and do scan
             Intent serverIntent = new Intent(this, DeviceListActivity.class);
-            gameview.setFlag(false);
             startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
             return true;
         case R.id.discoverable:

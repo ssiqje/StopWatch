@@ -154,6 +154,7 @@ public class BluetoothChatService {
         // Start the thread to manage the connection and perform transmissions
         mConnectedThread = new ConnectedThread(socket);
         mConnectedThread.start();
+        Log.i("info", "连接成功，通知，并准备读写");
 
         // Send the name of the connected device back to the UI Activity
         Message msg = mHandler.obtainMessage(MainActivity.MESSAGE_DEVICE_NAME);
@@ -309,7 +310,7 @@ public class BluetoothChatService {
 
             // Get a BluetoothSocket for a connection with the
             // given BluetoothDevice
-            Log.w("info", "~~~~~~~~~~~~~>"+device.getAddress().toString());
+            Log.i("info", "~~~~~~~~~~~~~>"+device.getAddress().toString());
             try {
                 tmp = device.createRfcommSocketToServiceRecord(MY_UUID);
             } catch (IOException e) {
@@ -330,11 +331,13 @@ public class BluetoothChatService {
                 // This is a blocking call and will only return on a
                 // successful connection or an exception
                 mmSocket.connect();
+                Log.i(TAG, "conntct is suress");
             } catch (IOException e) {
                 connectionFailed();
                 // Close the socket
                 try {
                     mmSocket.close();
+                    
                 } catch (IOException e2) {
                     Log.e(TAG, "unable to close() socket during connection failure", e2);
                 }
@@ -371,7 +374,7 @@ public class BluetoothChatService {
         private final OutputStream mmOutStream;
 
         public ConnectedThread(BluetoothSocket socket) {
-            Log.d(TAG, "create ConnectedThread");
+            Log.i("info", "create ConnectedThread");
             mmSocket = socket;
             InputStream tmpIn = null;
             OutputStream tmpOut = null;
@@ -380,6 +383,7 @@ public class BluetoothChatService {
             try {
                 tmpIn = socket.getInputStream();
                 tmpOut = socket.getOutputStream();
+                Log.i("info", "获取流成功");
             } catch (IOException e) {
                 Log.e(TAG, "temp sockets not created", e);
             }
@@ -398,7 +402,7 @@ public class BluetoothChatService {
                 try {
                     // Read from the InputStream
                     bytes = mmInStream.read(buffer);
-
+                    Log.i("info", "读到一个数据");
                     // Send the obtained bytes to the UI Activity
                     mHandler.obtainMessage(MainActivity.MESSAGE_READ, bytes, -1, buffer)
                             .sendToTarget();
