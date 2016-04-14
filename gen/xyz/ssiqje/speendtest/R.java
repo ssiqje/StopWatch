@@ -25,25 +25,39 @@ public final class R {
     }
     public static final class drawable {
         public static final int backgroup=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
-        public static final int j=0x7f020002;
-        public static final int l=0x7f020003;
-        public static final int point=0x7f020004;
-        public static final int r=0x7f020005;
-        public static final int sdp=0x7f020006;
-        public static final int wdp=0x7f020007;
-        public static final int welcome=0x7f020008;
-        public static final int y=0x7f020009;
+        public static final int electricquantity1=0x7f020001;
+        public static final int electricquantity2=0x7f020002;
+        public static final int electricquantity3=0x7f020003;
+        public static final int electricquantity4=0x7f020004;
+        public static final int electricquantity5=0x7f020005;
+        public static final int electricquantity6=0x7f020006;
+        public static final int ic_launcher=0x7f020007;
+        public static final int j=0x7f020008;
+        public static final int l=0x7f020009;
+        public static final int nu=0x7f02000a;
+        public static final int point=0x7f02000b;
+        public static final int r=0x7f02000c;
+        public static final int sdp=0x7f02000d;
+        public static final int wdp=0x7f02000e;
+        public static final int welcome=0x7f02000f;
+        public static final int y=0x7f020010;
     }
     public static final class id {
         public static final int button_scan=0x7f090004;
-        public static final int discoverable=0x7f090008;
+        public static final int discoverable=0x7f09000f;
+        public static final int electricquantityimg=0x7f09000b;
         public static final int new_devices=0x7f090003;
         public static final int paired_devices=0x7f090001;
-        public static final int scan=0x7f090007;
+        public static final int scan=0x7f09000e;
         public static final int sdpimg=0x7f090005;
+        public static final int switchj=0x7f090008;
+        public static final int switchy=0x7f090009;
+        public static final int timeTV=0x7f09000d;
         public static final int title_new_devices=0x7f090002;
         public static final int title_paired_devices=0x7f090000;
+        public static final int totalKM_Tv=0x7f09000c;
+        public static final int turnl=0x7f090007;
+        public static final int turnr=0x7f09000a;
         public static final int wdpimg=0x7f090006;
     }
     public static final class layout {

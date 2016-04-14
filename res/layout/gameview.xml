@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroup" >
+    android:background="@drawable/backgroup"
+    tools:context=".MainActivity" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,6 +31,7 @@
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginLeft="60dp"
             android:layout_weight="1" >
 
             <ImageView
@@ -46,52 +49,100 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="20dp" >
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1" >
-             <ImageView
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:src="@drawable/l" />
 
-        	<LinearLayout 
-        	    android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:gravity="end">
-        	    <ImageView
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_gravity="right"
-	            android:src="@drawable/j" />
-        	</LinearLayout>
+            <ImageView
+                android:id="@+id/turnl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/l" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end" >
+
+                <ImageView
+                    android:id="@+id/switchj"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:src="@drawable/j" />
+            </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
-            android:layout_weight="1" 
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:id="@+id/switchy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/y" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end" >
+
+                <ImageView
+                    android:id="@+id/turnr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:src="@drawable/r" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/electricquantityimg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/electricquantity6" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="10dp" >
+
+        <TextView
+            android:id="@+id/totalKM_Tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="total:42151KM"
+            android:textColor="#0BD1F8"
+            android:textSize="25sp" />
+
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            >
-	        <ImageView
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:src="@drawable/y" />
-	
-	        <LinearLayout 
-        	    android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:gravity="end">
-        	    <ImageView
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_gravity="right"
-	            android:src="@drawable/r" />
-        	</LinearLayout>
-        </LinearLayout>
+            android:gravity="center"
+            android:text="SET"
+            android:textColor="#0BD1F8"
+            android:textSize="15sp" />
 
+        <TextView
+            android:id="@+id/timeTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="24:30"
+            android:textColor="#0BD1F8"
+            android:textSize="25sp" />
     </LinearLayout>
 
 </FrameLayout>

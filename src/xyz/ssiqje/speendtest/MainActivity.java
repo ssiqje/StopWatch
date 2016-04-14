@@ -1,15 +1,17 @@
 package xyz.ssiqje.speendtest;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import xyz.ssiqje.bluetooth.BluetoothChatService;
 import xyz.ssiqje.bluetooth.DeviceListActivity;
 import xyz.ssiqje.speendtest.anim.Sanim;
 import android.R.integer;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -25,6 +27,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -37,6 +40,7 @@ public class MainActivity extends Activity {
     public static final int MESSAGE_WRITE = 3;
     public static final int MESSAGE_DEVICE_NAME = 4;
     public static final int MESSAGE_TOAST = 5;
+    public static final int TIME = 6;
 
     // Key names received from the BluetoothChatService Handler
     public static final String DEVICE_NAME = "device_name";
@@ -52,8 +56,18 @@ public class MainActivity extends Activity {
 	int height;
 	ImageView sdppoint;
 	ImageView wdppoint;
-	int currentangle=0;
+	ImageView switchy;
+	ImageView switchj;
+	ImageView turnl;
+	ImageView turnr;
+	ImageView electricquantityimg;
+	TextView	totalKMTv;
+	TextView timeTV;
+	int[] electricquantityImgList;
+	float sdpcurrentangle=0;
+	float wdpcurrentangle=0;
 	Sanim sanim=null;
+	@SuppressLint("HandlerLeak")
 	private final Handler mHandler = new Handler() 
 	{
 
@@ -62,22 +76,48 @@ public class MainActivity extends Activity {
 		{
             switch (msg.what) {
             case MESSAGE_READ:
-            	Toast.makeText(MainActivity.this, "收到一个消息~~~~~~~~~~~", 1).show();
                 byte[] readBuf = (byte[]) msg.obj;
                 // construct a string from the valid bytes in the buffer
+                
                 String readMessage = new String(readBuf, 0, msg.arg1);
-                int newangle=Integer.parseInt(readMessage);
+                if(readMessage.startsWith("(")&&readMessage.endsWith(")"))
+                {
+                	Toast.makeText(MainActivity.this, "接收到一个正确的数据", Toast.LENGTH_LONG).show();
+                	readMessage = new String(readBuf, 1, (msg.arg1-2));
+                }
+                else {
+                	Toast.makeText(MainActivity.this, "接收到一个错误的数据", Toast.LENGTH_LONG).show();
+                	break;
+				}
+                String [] data=readMessage.split("=");
                 if(sdppoint!=null)
                 {
                 	AnimationSet animation=new AnimationSet(true);
-                	RotateAnimation rotate=new RotateAnimation(currentangle, newangle,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
-            		rotate.setDuration(3000);
+                	RotateAnimation rotate=new RotateAnimation(sdpcurrentangle, (Float.parseFloat(data[0]))/5*19,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+            		rotate.setDuration(1000);
             		animation.addAnimation(rotate);
             		animation.setFillAfter(true);
             		sdppoint.startAnimation(animation);
-            		wdppoint.startAnimation(animation);
-            		currentangle=newangle;
+            		sdpcurrentangle=(Float.parseFloat(data[0]))/5*19;
+            		
                 }
+                if(wdppoint!=null)
+                {
+                	AnimationSet animation=new AnimationSet(true);
+                	RotateAnimation rotate=new RotateAnimation(wdpcurrentangle, 19.08f/4*(Float.parseFloat(data[6])),Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+            		rotate.setDuration(1000);
+            		animation.addAnimation(rotate);
+            		animation.setFillAfter(true);
+            		wdppoint.startAnimation(animation);
+            		wdpcurrentangle=19.08f/4*(Float.parseFloat(data[6]));
+                }
+                turnl.setImageResource(data[1].equals("0")?R.drawable.nu:R.drawable.l);
+                turnr.setImageResource(data[2].equals("0")?R.drawable.nu:R.drawable.r);
+                switchy.setImageResource(data[3].equals("0")?R.drawable.nu:R.drawable.y);
+                switchj.setImageResource(data[4].equals("0")?R.drawable.nu:R.drawable.j);
+                electricquantityimg.setImageResource(electricquantityImgList[(Integer.parseInt(data[5]))-1]);
+            	totalKMTv.setText("total:"+data[7]+"KM");
+            	
                 break;
             case MESSAGE_DEVICE_NAME:
                 // save the connected device's name
@@ -92,7 +132,12 @@ public class MainActivity extends Activity {
             case 123:
                 initGameview();
                 break;
+            case TIME:
+        		SimpleDateFormat dateFormat=new SimpleDateFormat("HH:mm:ss");
+        		timeTV.setText(dateFormat.format(new Date()));
+        		mHandler.sendEmptyMessageDelayed(TIME, 1000);
             }
+            
         
         
         }
@@ -102,6 +147,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		DisplayMetrics dm=getResources().getDisplayMetrics();
 		width=dm.widthPixels;
 		height=dm.heightPixels;
@@ -156,7 +202,15 @@ public class MainActivity extends Activity {
 		this.setContentView(R.layout.gameview);
 		sdppoint=(ImageView) findViewById(R.id.sdpimg);
 		wdppoint=(ImageView) findViewById(R.id.wdpimg);
-		
+		switchy=(ImageView) findViewById(R.id.switchy);
+		switchj=(ImageView) findViewById(R.id.switchj);
+		turnl=(ImageView) findViewById(R.id.turnl);
+		turnr=(ImageView) findViewById(R.id.turnr);
+		electricquantityimg=(ImageView) findViewById(R.id.electricquantityimg);
+		electricquantityImgList=new int[]{R.drawable.electricquantity1,R.drawable.electricquantity2,R.drawable.electricquantity3,R.drawable.electricquantity4,R.drawable.electricquantity5,R.drawable.electricquantity6};
+		totalKMTv=(TextView) findViewById(R.id.totalKM_Tv);
+		timeTV=(TextView) findViewById(R.id.timeTV);
+		mHandler.sendEmptyMessageDelayed(TIME, 1000);
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
