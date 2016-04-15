@@ -43,12 +43,16 @@ public final class R {
         public static final int y=0x7f020010;
     }
     public static final class id {
+        public static final int bjEt=0x7f090011;
         public static final int button_scan=0x7f090004;
-        public static final int discoverable=0x7f09000f;
+        public static final int discoverable=0x7f090013;
         public static final int electricquantityimg=0x7f09000b;
+        public static final int gytEt=0x7f090010;
+        public static final int hourEt=0x7f09000e;
+        public static final int minEt=0x7f09000f;
         public static final int new_devices=0x7f090003;
         public static final int paired_devices=0x7f090001;
-        public static final int scan=0x7f09000e;
+        public static final int scan=0x7f090012;
         public static final int sdpimg=0x7f090005;
         public static final int switchj=0x7f090008;
         public static final int switchy=0x7f090009;
@@ -64,6 +68,7 @@ public final class R {
         public static final int device_list=0x7f030000;
         public static final int device_name=0x7f030001;
         public static final int gameview=0x7f030002;
+        public static final int seting=0x7f030003;
     }
     public static final class menu {
         public static final int option_menu=0x7f080000;

@@ -29,6 +29,9 @@
         <activity
             android:screenOrientation="landscape"
             android:name="xyz.ssiqje.bluetooth.DeviceListActivity"/>
+        <activity
+            android:screenOrientation="landscape"
+            android:name=".setingActivity"/>
     </application>
 
 </manifest>

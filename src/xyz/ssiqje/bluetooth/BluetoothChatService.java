@@ -406,6 +406,7 @@ public class BluetoothChatService {
                     // Send the obtained bytes to the UI Activity
                     mHandler.obtainMessage(MainActivity.MESSAGE_READ, bytes, -1, buffer)
                             .sendToTarget();
+                    Log.i("info", "数据通知发送成功");
                 } catch (IOException e) {
                     Log.e(TAG, "disconnected", e);
                     connectionLost();

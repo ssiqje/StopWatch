@@ -132,7 +132,8 @@
             android:gravity="center"
             android:text="SET"
             android:textColor="#0BD1F8"
-            android:textSize="15sp" />
+            android:textSize="15sp" 
+            android:onClick="seting"/>
 
         <TextView
             android:id="@+id/timeTV"
