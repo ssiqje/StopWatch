@@ -19,12 +19,14 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="40dp"
                 android:src="@drawable/sdp" />
 
             <ImageView
                 android:id="@+id/sdpimg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="40dp"
                 android:src="@drawable/point" />
         </FrameLayout>
 
@@ -37,12 +39,14 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="40dp"
                 android:src="@drawable/wdp" />
 
             <ImageView
                 android:id="@+id/wdpimg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="40dp"
                 android:src="@drawable/point" />
         </FrameLayout>
     </LinearLayout>
@@ -50,7 +54,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp" >
+        android:layout_marginTop="10dp" >
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -107,43 +111,62 @@
         android:id="@+id/electricquantityimg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:layout_gravity="center"
         android:src="@drawable/electricquantity6" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="10dp" >
+        android:layout_marginBottom="5dp" >
 
-        <TextView
-            android:id="@+id/totalKM_Tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="total:42151KM"
-            android:textColor="#0BD1F8"
-            android:textSize="25sp" />
+		<ImageView
+		    android:id="@+id/lightlivilimg"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center_horizontal"
+		    android:src="@drawable/liang2" />
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center_horizontal"
+		    android:textColor="#BBBBBB"
+		    android:text="高  中  低"/>
+		 <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="SET"
-            android:textColor="#0BD1F8"
-            android:textSize="15sp" 
-            android:onClick="seting"/>
+            <TextView
+                android:id="@+id/totalKM_Tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Total:42151KM"
+                android:textColor="#0BD1F8"
+                android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/timeTV"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="24:30"
-            android:textColor="#0BD1F8"
-            android:textSize="25sp" />
+            <Button
+                android:id="@+id/button1"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="seting"
+                android:text="set" />
+
+            <TextView
+                android:id="@+id/timeTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="24:30"
+                android:textColor="#0BD1F8"
+                android:textSize="20sp" />
+        </LinearLayout>
+       
     </LinearLayout>
 
 </FrameLayout>

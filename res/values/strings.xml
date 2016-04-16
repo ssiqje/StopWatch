@@ -17,5 +17,13 @@
     <string name="connect">Connect a device</string>
     <string name="discoverable">Make discoverable</string>
     <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Leaving Bluetooth Chat.</string>
+    <string-array name="pairedDeviceList">
+        <item >asdf</item>
+        <item >红</item>
+        <item >黄</item>
+        <item >蓝</item>
+        <item >绿</item>
+        <item >1234</item>
+    </string-array>
 
 </resources>

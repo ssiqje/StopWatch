@@ -63,9 +63,11 @@ public class MainActivity extends Activity {
 	ImageView turnl;
 	ImageView turnr;
 	ImageView electricquantityimg;
+	ImageView lightlivilimg;
 	TextView totalKMTv;
 	TextView timeTV;
 	int[] electricquantityImgList;
+	int [] lightlivilimgList;
 	float sdpcurrentangle = 0;
 	float wdpcurrentangle = 0;
 	Sanim sanim = null;
@@ -130,7 +132,9 @@ public class MainActivity extends Activity {
 				electricquantityimg
 						.setImageResource(electricquantityImgList[(Integer
 								.parseInt(data[5])) - 1]);
-				totalKMTv.setText("total:" + data[7] + "KM");
+				totalKMTv.setText("Total:" + data[7] + "KM");
+				lightlivilimg.setImageResource(data[8].equals("0")?R.drawable.liang0:data[8].equals("1")?R.drawable.liang1:
+											   data[8].equals("2")?R.drawable.liang2:R.drawable.liang3);
 
 				break;
 			case MESSAGE_DEVICE_NAME:
@@ -237,10 +241,17 @@ public class MainActivity extends Activity {
 		turnl = (ImageView) findViewById(R.id.turnl);
 		turnr = (ImageView) findViewById(R.id.turnr);
 		electricquantityimg = (ImageView) findViewById(R.id.electricquantityimg);
-		electricquantityImgList = new int[] { R.drawable.electricquantity1,
-				R.drawable.electricquantity2, R.drawable.electricquantity3,
-				R.drawable.electricquantity4, R.drawable.electricquantity5,
-				R.drawable.electricquantity6 };
+		lightlivilimg=(ImageView) findViewById(R.id.lightlivilimg);
+		electricquantityImgList = new int[] { 	R.drawable.electricquantity1,
+												R.drawable.electricquantity2, 
+												R.drawable.electricquantity3,
+												R.drawable.electricquantity4, 
+												R.drawable.electricquantity5,
+												R.drawable.electricquantity6 };
+		lightlivilimgList=new int []{R.drawable.liang0,
+									 R.drawable.liang1,
+									 R.drawable.liang2,
+									 R.drawable.liang3};
 		totalKMTv = (TextView) findViewById(R.id.totalKM_Tv);
 		timeTV = (TextView) findViewById(R.id.timeTV);
 		mHandler.sendEmptyMessageDelayed(TIME, 1000);
@@ -305,15 +316,27 @@ public class MainActivity extends Activity {
 				String gy = data.getStringExtra("gy");
 				Toast.makeText(this, "->" + time + "<->" + gy + "<-",
 						Toast.LENGTH_LONG).show();
-				if (mChatService.getState() == mChatService.STATE_CONNECTED) {
+				if (mChatService.getState() == mChatService.STATE_CONNECTED) 
+				{
+					if(time!=null)
 					mChatService.write(time.getBytes());
+					if(gy!=null)
 					mChatService.write(gy.getBytes());
 				}
+				// Get the device MAC address
+				String address = data.getExtras().getString(
+						"device");
+				// Get the BLuetoothDevice object
+				BluetoothDevice device = mBluetoothAdapter
+						.getRemoteDevice(address);
+				// Attempt to connect to the device
+				mChatService.connect(device);
 			}
 		}
 	}
 
 	public void seting(View v) {
+		
 		startActivityForResult(new Intent(this, setingActivity.class), SETING);
 	}
 }
