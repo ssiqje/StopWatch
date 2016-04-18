@@ -20,244 +20,256 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical" >
+
                 <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
-                android:onClick="bluetoothset"
-                android:text="蓝牙设置"
-                android:textSize="17sp" />
-
-            <TextView
-                android:id="@+id/readConnectDevice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="bottom"
-                android:text="连接设备为:无"
-                android:textColor="#fff"
-                android:textSize="15sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/bluetoothsetlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:visibility="visible" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="已配对的设备"
-                    android:textColor="#fff"
-                    android:textSize="17dp" />
-
-                <ListView
-                    android:id="@+id/pairedDeviceslv"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" />
-            </LinearLayout>
+                    android:layout_height="wrap_content" >
 
-            <LinearLayout
-                android:id="@+id/scanDeviceLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:visibility="gone" >
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:onClick="bluetoothset"
+                        android:text="蓝牙设置"
+                        android:textSize="17sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="发现的新设备"
-                    android:textColor="#fff"
-                    android:textSize="17dp" />
+                    <TextView
+                        android:id="@+id/readConnectDevice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="bottom"
+                        android:text="连接设备为:无"
+                        android:textColor="#fff"
+                        android:textSize="15sp" />
+                </LinearLayout>
 
-                <ListView
-                    android:id="@+id/newDeviceslv"
+                <LinearLayout
+                    android:id="@+id/bluetoothsetlayout"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" />
-            </LinearLayout>
-        </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" >
 
-        <Button
-            android:id="@+id/scanNewDevBut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:onClick="scanDevice"
-            android:text="搜索新设备"
-            android:visibility="gone" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:visibility="visible" >
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
-            android:background="#BBBBBB" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="已配对的设备"
+                            android:textColor="#fff"
+                            android:textSize="17dp" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:onClick="parameterSet"
-            android:text="参数设置"
-            android:textSize="17sp" />
+                        <ListView
+                            android:id="@+id/pairedDeviceslv"
+                            android:layout_width="match_parent"
+                            android:layout_height="140dp" />
+                    </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/parameterSetLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" 
-            android:visibility="gone">
+                    <LinearLayout
+                        android:id="@+id/scanDeviceLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:visibility="gone" >
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
 
-                <TextView
+                            <TextView
+                                android:id="@+id/discoveryTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="正在扫描"
+                                android:textColor="#fff"
+                                android:textSize="17dp" />
+
+                            <ProgressBar
+                                android:id="@+id/discoveryProgress"
+                                style="@android:style/Widget.ProgressBar.Small"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" 
+                                />
+                        </LinearLayout>
+
+                        <ListView
+                            android:id="@+id/newDeviceslv"
+                            android:layout_width="match_parent"
+                            android:layout_height="140dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/scanNewDevBut"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:onClick="scanDevice"
+                    android:text="搜索新设备"
+                    android:visibility="gone" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
                     android:layout_marginLeft="5dp"
-                    android:text="时间"
-                    android:textColor="#fff"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#BBBBBB" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:onClick="parameterSet"
+                    android:text="参数设置"
                     android:textSize="17sp" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/parameterSetLayout"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp" >
+                    android:visibility="gone" >
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="小时"
-                        android:textColor="#fff" />
+                        android:orientation="vertical" >
 
-                    <EditText
-                        android:id="@+id/hourEt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="#fff"
-                        android:ems="6"
-                        android:hint="HH"
-                        android:inputType="number"
-                        android:maxLength="2"
-                        android:nextFocusDown="@+id/minEt" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="时间"
+                            android:textColor="#fff"
+                            android:textSize="17sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="分钟"
-                        android:textColor="#fff" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp" >
 
-                    <EditText
-                        android:id="@+id/minEt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="#fff"
-                        android:ems="6"
-                        android:hint="mm"
-                        android:inputType="number"
-                        android:maxLength="2"
-                        android:nextFocusDown="@+id/gytEt" >
-                    </EditText>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="小时"
+                                android:textColor="#fff" />
+
+                            <EditText
+                                android:id="@+id/hourEt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="#fff"
+                                android:ems="6"
+                                android:hint="HH"
+                                android:inputType="number"
+                                android:maxLength="2"
+                                android:nextFocusDown="@+id/minEt" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="分钟"
+                                android:textColor="#fff" />
+
+                            <EditText
+                                android:id="@+id/minEt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="#fff"
+                                android:ems="6"
+                                android:hint="mm"
+                                android:inputType="number"
+                                android:maxLength="2"
+                                android:nextFocusDown="@+id/gytEt" >
+                            </EditText>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="3dp"
+                            android:background="#5D5D5D" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="感应器"
+                            android:textColor="#fff"
+                            android:textSize="17sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="感应头"
+                                android:textColor="#fff" />
+
+                            <EditText
+                                android:id="@+id/gytEt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="#fff"
+                                android:ems="6"
+                                android:hint="感应头个数"
+                                android:inputType="number"
+                                android:maxLength="2"
+                                android:nextFocusDown="@+id/bjEt" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="轮子半径"
+                                android:textColor="#fff" />
+
+                            <EditText
+                                android:id="@+id/bjEt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="#fff"
+                                android:ems="6"
+                                android:hint="轮子半径"
+                                android:inputType="number"
+                                android:maxLength="2" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="3dp"
-                    android:background="#5D5D5D" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="感应器"
-                    android:textColor="#fff"
-                    android:textSize="17sp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="感应头"
-                        android:textColor="#fff" />
-
-                    <EditText
-                        android:id="@+id/gytEt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="#fff"
-                        android:ems="6"
-                        android:hint="感应头个数"
-                        android:inputType="number"
-                        android:maxLength="2"
-                        android:nextFocusDown="@+id/bjEt" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="轮子半径"
-                        android:textColor="#fff" />
-
-                    <EditText
-                        android:id="@+id/bjEt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="#fff"
-                        android:ems="6"
-                        android:hint="轮子半径"
-                        android:inputType="number"
-                        android:maxLength="2" />
-                </LinearLayout>
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#BBBBBB" />
             </LinearLayout>
-        </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
-            android:background="#BBBBBB" />
-            </LinearLayout>
-            <Button 
-                 android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:text="返回"
-            android:onClick="seting"
-            />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:onClick="seting"
+                android:text="返回" />
         </LinearLayout>
-
-        
 
         <TextView
             android:layout_width="wrap_content"

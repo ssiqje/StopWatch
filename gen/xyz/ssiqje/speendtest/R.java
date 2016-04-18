@@ -50,42 +50,37 @@ public final class R {
         public static final int y=0x7f020014;
     }
     public static final class id {
-        public static final int bjEt=0x7f0a001a;
-        public static final int bluetoothsetlayout=0x7f0a0011;
-        public static final int button1=0x7f0a000e;
-        public static final int button_scan=0x7f0a0004;
-        public static final int discoverable=0x7f0a001c;
-        public static final int electricquantityimg=0x7f0a000b;
-        public static final int gytEt=0x7f0a0019;
-        public static final int hourEt=0x7f0a0017;
-        public static final int lightlivilimg=0x7f0a000c;
-        public static final int minEt=0x7f0a0018;
-        public static final int newDeviceslv=0x7f0a0014;
-        public static final int new_devices=0x7f0a0003;
-        public static final int pairedDeviceslv=0x7f0a0012;
-        public static final int paired_devices=0x7f0a0001;
-        public static final int parameterSetLayout=0x7f0a0016;
-        public static final int readConnectDevice=0x7f0a0010;
-        public static final int scan=0x7f0a001b;
-        public static final int scanDeviceLayout=0x7f0a0013;
-        public static final int scanNewDevBut=0x7f0a0015;
-        public static final int sdpimg=0x7f0a0005;
-        public static final int switchj=0x7f0a0008;
-        public static final int switchy=0x7f0a0009;
-        public static final int timeTV=0x7f0a000f;
-        public static final int title_new_devices=0x7f0a0002;
-        public static final int title_paired_devices=0x7f0a0000;
-        public static final int totalKM_Tv=0x7f0a000d;
-        public static final int turnl=0x7f0a0007;
-        public static final int turnr=0x7f0a000a;
-        public static final int wdpimg=0x7f0a0006;
+        public static final int bjEt=0x7f0a0017;
+        public static final int bluetoothsetlayout=0x7f0a000c;
+        public static final int button1=0x7f0a0009;
+        public static final int discoverable=0x7f0a0019;
+        public static final int discoveryProgress=0x7f0a0010;
+        public static final int discoveryTv=0x7f0a000f;
+        public static final int electricquantityimg=0x7f0a0006;
+        public static final int gytEt=0x7f0a0016;
+        public static final int hourEt=0x7f0a0014;
+        public static final int lightlivilimg=0x7f0a0007;
+        public static final int minEt=0x7f0a0015;
+        public static final int newDeviceslv=0x7f0a0011;
+        public static final int pairedDeviceslv=0x7f0a000d;
+        public static final int parameterSetLayout=0x7f0a0013;
+        public static final int readConnectDevice=0x7f0a000b;
+        public static final int scan=0x7f0a0018;
+        public static final int scanDeviceLayout=0x7f0a000e;
+        public static final int scanNewDevBut=0x7f0a0012;
+        public static final int sdpimg=0x7f0a0000;
+        public static final int switchj=0x7f0a0003;
+        public static final int switchy=0x7f0a0004;
+        public static final int timeTV=0x7f0a000a;
+        public static final int totalKM_Tv=0x7f0a0008;
+        public static final int turnl=0x7f0a0002;
+        public static final int turnr=0x7f0a0005;
+        public static final int wdpimg=0x7f0a0001;
     }
     public static final class layout {
         public static final int device_item=0x7f030000;
-        public static final int device_list=0x7f030001;
-        public static final int device_name=0x7f030002;
-        public static final int gameview=0x7f030003;
-        public static final int seting=0x7f030004;
+        public static final int gameview=0x7f030001;
+        public static final int seting=0x7f030002;
     }
     public static final class menu {
         public static final int option_menu=0x7f090000;

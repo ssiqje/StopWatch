@@ -1,13 +1,10 @@
 package xyz.ssiqje.speendtest;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import xyz.ssiqje.bluetooth.BluetoothChatService;
-import xyz.ssiqje.bluetooth.DeviceListActivity;
 import xyz.ssiqje.speendtest.anim.Sanim;
-import android.R.integer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,9 +15,6 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -131,7 +125,7 @@ public class MainActivity extends Activity {
 						: R.drawable.j);
 				electricquantityimg
 						.setImageResource(electricquantityImgList[(Integer
-								.parseInt(data[5])) - 1]);
+								.parseInt(data[5])) ]);
 				totalKMTv.setText("Total:" + data[7] + "KM");
 				lightlivilimg.setImageResource(data[8].equals("0")?R.drawable.liang0:data[8].equals("1")?R.drawable.liang1:
 											   data[8].equals("2")?R.drawable.liang2:R.drawable.liang3);
@@ -218,17 +212,6 @@ public class MainActivity extends Activity {
 		mChatService = new BluetoothChatService(this, mHandler);
 	}
 
-	private void ensureDiscoverable() {
-		if (D)
-			Log.d(TAG, "ensure discoverable");
-		if (mBluetoothAdapter.getScanMode() != BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
-			Intent discoverableIntent = new Intent(
-					BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-			discoverableIntent.putExtra(
-					BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-			startActivity(discoverableIntent);
-		}
-	}
 
 	private void initGameview() {
 		// TODO Auto-generated method stub
@@ -257,47 +240,11 @@ public class MainActivity extends Activity {
 		mHandler.sendEmptyMessageDelayed(TIME, 1000);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO Auto-generated method stub
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.option_menu, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.scan:
-			// Launch the DeviceListActivity to see devices and do scan
-			Intent serverIntent = new Intent(this, DeviceListActivity.class);
-			startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
-			return true;
-		case R.id.discoverable:
-			// Ensure this device is discoverable by others
-			ensureDiscoverable();
-			return true;
-		}
-		return false;
-	}
-
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (D)
 			Log.d(TAG, "onActivityResult " + resultCode);
 		switch (requestCode) {
-		case REQUEST_CONNECT_DEVICE:
-			// When DeviceListActivity returns with a device to connect
-			if (resultCode == Activity.RESULT_OK) {
-				// Get the device MAC address
-				String address = data.getExtras().getString(
-						DeviceListActivity.EXTRA_DEVICE_ADDRESS);
-				// Get the BLuetoothDevice object
-				BluetoothDevice device = mBluetoothAdapter
-						.getRemoteDevice(address);
-				// Attempt to connect to the device
-				mChatService.connect(device);
-			}
-			break;
+		
 		case REQUEST_ENABLE_BT:
 			// When the request to enable Bluetooth returns
 			if (resultCode == Activity.RESULT_OK) {
