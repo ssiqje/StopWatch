@@ -114,6 +114,13 @@
         android:layout_marginBottom="10dp"
         android:layout_gravity="center"
         android:src="@drawable/electricquantity6" />
+    <ImageView
+        android:id="@+id/bluetooth_not_connectimg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        android:src="@drawable/bluetooth_no_connect"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -149,12 +156,20 @@
                 android:textSize="20sp" />
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/config_setBut"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="seting"
-                android:text="set" />
+                android:background="@drawable/config_set"
+                android:onClick="setParameter"
+                android:visibility="gone"/>
+            <Button
+                android:id="@+id/bluetooth_setBut"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bluetooth_set"
+                android:onClick="setBluetooth"/>
 
             <TextView
                 android:id="@+id/timeTV"

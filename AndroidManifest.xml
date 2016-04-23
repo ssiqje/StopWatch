@@ -28,10 +28,10 @@
         </activity>
         <activity
             android:screenOrientation="landscape"
-            android:name="xyz.ssiqje.bluetooth.DeviceListActivity"/>
+            android:name=".setBluetoothActivity"/>
         <activity
             android:screenOrientation="landscape"
-            android:name=".setingActivity"/>
+            android:name=".setParameterActivity"/>
     </application>
 
 </manifest>

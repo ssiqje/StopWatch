@@ -31,6 +31,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.provider.ContactsContract.Profile;
 import android.util.Log;
 
 /**
@@ -39,7 +42,7 @@ import android.util.Log;
  * incoming connections, a thread for connecting with a device, and a
  * thread for performing data transmissions when connected.
  */
-public class BluetoothChatService {
+public class BluetoothChatService implements Parcelable{
     // Debugging
     private static final String TAG = "BluetoothChatService";
     private static final boolean D = true;
@@ -48,8 +51,7 @@ public class BluetoothChatService {
     private static final String NAME = "BluetoothChat";
 
     // Unique UUID for this application   fa87c0d0-afac-11de-8a39-0800200c9a66   00001101-0000-1000-8000-00805F9B34FB
-    private static final UUID MY_UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
-
+    private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     // Member fields
     private final BluetoothAdapter mAdapter;
     private final Handler mHandler;
@@ -439,4 +441,30 @@ public class BluetoothChatService {
             }
         }
     }
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
+		
+	}
+	public static final Parcelable.Creator<BluetoothChatService> CREATOR =new Creator<BluetoothChatService>() {
+		
+		@Override
+		public BluetoothChatService[] newArray(int size) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		@Override
+		public BluetoothChatService createFromParcel(Parcel source) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+	};
 }

@@ -12,7 +12,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -44,7 +47,8 @@ public class MainActivity extends Activity {
 	// Intent request codes
 	private static final int REQUEST_CONNECT_DEVICE = 1;
 	private static final int REQUEST_ENABLE_BT = 2;
-	private static final int SETING = 3;
+	private static final int SET_BLUETOOTH = 3;
+	private static final int SET_PARAMETER = 4;
 	private BluetoothChatService mChatService = null;
 	private BluetoothAdapter mBluetoothAdapter;
 	private String mConnectedDeviceName;
@@ -95,7 +99,7 @@ public class MainActivity extends Activity {
 							(Float.parseFloat(data[0])) / 5 * 19,
 							Animation.RELATIVE_TO_SELF, 0.5f,
 							Animation.RELATIVE_TO_SELF, 0.5f);
-					rotate.setDuration(1000);
+					rotate.setDuration(500);
 					animation.addAnimation(rotate);
 					animation.setFillAfter(true);
 					sdppoint.startAnimation(animation);
@@ -109,7 +113,7 @@ public class MainActivity extends Activity {
 							19.08f / 4 * (Float.parseFloat(data[6])),
 							Animation.RELATIVE_TO_SELF, 0.5f,
 							Animation.RELATIVE_TO_SELF, 0.5f);
-					rotate.setDuration(1000);
+					rotate.setDuration(500);
 					animation.addAnimation(rotate);
 					animation.setFillAfter(true);
 					wdppoint.startAnimation(animation);
@@ -212,11 +216,34 @@ public class MainActivity extends Activity {
 		mChatService = new BluetoothChatService(this, mHandler);
 	}
 
-
+BroadcastReceiver mainuiReceiver =new BroadcastReceiver() {
+	
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		// TODO Auto-generated method stub
+		String action=intent.getAction();
+		if(action.equals(BluetoothDevice.ACTION_ACL_CONNECTED))
+		{
+			((View)findViewById(R.id.bluetooth_not_connectimg)).setVisibility(View.GONE);
+			((View)findViewById(R.id.bluetooth_setBut)).setVisibility(View.GONE);
+			((View)findViewById(R.id.config_setBut)).setVisibility(View.VISIBLE);
+		}
+		else
+		{
+			((View)findViewById(R.id.bluetooth_not_connectimg)).setVisibility(View.VISIBLE);
+			((View)findViewById(R.id.bluetooth_setBut)).setVisibility(View.VISIBLE);
+			((View)findViewById(R.id.config_setBut)).setVisibility(View.GONE);
+		}
+		
+	}
+};
 	private void initGameview() {
 		// TODO Auto-generated method stub
 		// gameview=new gameview(this, width,height);
 		this.setContentView(R.layout.gameview);
+		IntentFilter filter=new IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED);
+		filter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
+		registerReceiver(mainuiReceiver, filter);
 		sdppoint = (ImageView) findViewById(R.id.sdpimg);
 		wdppoint = (ImageView) findViewById(R.id.wdpimg);
 		switchy = (ImageView) findViewById(R.id.switchy);
@@ -257,19 +284,8 @@ public class MainActivity extends Activity {
 						Toast.LENGTH_SHORT).show();
 				finish();
 			}
-		case SETING:
+		case SET_BLUETOOTH:
 			if (resultCode == Activity.RESULT_OK) {
-				String time = data.getStringExtra("time");
-				String gy = data.getStringExtra("gy");
-				Toast.makeText(this, "->" + time + "<->" + gy + "<-",
-						Toast.LENGTH_LONG).show();
-				if (mChatService.getState() == mChatService.STATE_CONNECTED) 
-				{
-					if(time!=null)
-					mChatService.write(time.getBytes());
-					if(gy!=null)
-					mChatService.write(gy.getBytes());
-				}
 				// Get the device MAC address
 				String address = data.getExtras().getString(
 						"device");
@@ -279,11 +295,31 @@ public class MainActivity extends Activity {
 				// Attempt to connect to the device
 				mChatService.connect(device);
 			}
+		case SET_PARAMETER:
+			if (resultCode == Activity.RESULT_OK) {
+				String time = data.getStringExtra("time");
+				String gy = data.getStringExtra("gy");
+				Toast.makeText(this, "->" + time + "<->" + gy + "<-",
+						Toast.LENGTH_LONG).show();
+
+					if (mChatService.getState() == mChatService.STATE_CONNECTED) 
+					{
+						if(time!=null)
+						mChatService.write(time.getBytes());
+						if(gy!=null)
+						mChatService.write(gy.getBytes());
+					}
+				
+			}
 		}
 	}
 
-	public void seting(View v) {
+	public void setBluetooth(View v) {
 		
-		startActivityForResult(new Intent(this, setingActivity.class), SETING);
+		startActivityForResult(new Intent(this, setBluetoothActivity.class), SET_BLUETOOTH);
+	}
+	public void setParameter(View v)
+	{
+		startActivityForResult(new Intent(this, setParameterActivity.class), SET_PARAMETER);
 	}
 }

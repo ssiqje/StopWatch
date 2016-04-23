@@ -1,6 +1,5 @@
 package xyz.ssiqje.speendtest;
 
-import java.util.Calendar;
 import java.util.Set;
 
 
@@ -13,24 +12,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class setingActivity extends Activity
+public class setBluetoothActivity extends Activity
 {
-	EditText hourEditText,minEditText,gytEditText,bjEditText;
-	String  time=null;
-	String gy=null;
-	TextWatcher twatcherH;
 	ListView pairedDevicelv,newDevicelv;
 	ArrayAdapter<String> pairedAdapter,newDeviceAdapter;
 	
@@ -43,7 +36,7 @@ public class setingActivity extends Activity
 		public void onReceive(Context context, Intent intent) {
 			// TODO Auto-generated method stub
 			String action=intent.getAction();
-			Toast.makeText(setingActivity.this, action, Toast.LENGTH_LONG).show();
+			Toast.makeText(setBluetoothActivity.this, action, Toast.LENGTH_LONG).show();
 			if(BluetoothDevice.ACTION_FOUND.equals(action))
 			{
 				BluetoothDevice device=intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
@@ -53,24 +46,6 @@ public class setingActivity extends Activity
 				((ProgressBar)findViewById(R.id.discoveryProgress)).setVisibility(View.GONE);
             	((TextView)findViewById(R.id.discoveryTv)).setText("搜索到的新设备：");
 			}
-			
-			
-			
-			
-//			if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-//                // Get the BluetoothDevice object from the Intent
-//                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-//                // If it's already paired, skip it, because it's been listed already
-//                if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
-//                	newDeviceAdapter.add("设备名称:"+device.getName() + "\n设备地址" + device.getAddress());
-//                }
-//            // When discovery is finished, change the Activity title
-//            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-//            	((ProgressBar)findViewById(R.id.discoveryProgress)).setVisibility(View.GONE);
-//            	((TextView)findViewById(R.id.discoveryTv)).setText("搜索到的新设备：");
-//            }
-			
-			
 		}
 	};
 	@Override
@@ -79,14 +54,7 @@ public class setingActivity extends Activity
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		//getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		setContentView(R.layout.seting);
-		hourEditText=(EditText) findViewById(R.id.hourEt);
-		minEditText=(EditText) findViewById(R.id.minEt);
-		Calendar calendar=Calendar.getInstance();
-		hourEditText.setText(String.valueOf(calendar.get(Calendar.HOUR_OF_DAY)));
-		minEditText.setText(String.valueOf(calendar.get(Calendar.MINUTE)));
-		gytEditText=(EditText) findViewById(R.id.gytEt);
-		bjEditText=(EditText) findViewById(R.id.bjEt);
+		setContentView(R.layout.set_bluetooth);
 		pairedDevicelv=(ListView) findViewById(R.id.pairedDeviceslv);
 		newDevicelv=(ListView) findViewById(R.id.newDeviceslv);
 		bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
@@ -109,6 +77,14 @@ public class setingActivity extends Activity
 		registerReceiver(discoveryReceiver, filter);
 		
 	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		unregisterReceiver(discoveryReceiver);
+	}
+
 	OnItemClickListener bluetoothDevictClick=new OnItemClickListener() {
 
 		@Override
@@ -129,34 +105,12 @@ public class setingActivity extends Activity
 	};
 	public void seting(View v)
 	{
-			String h=hourEditText.getText().toString();
-			String m=minEditText.getText().toString();
-			String gyt=gytEditText.getText().toString();
-			String bj=bjEditText.getText().toString();
-			if(!h.equals("")||!m.equals(""))
-			
-				time="("+1+"="+h+m+")";
-			
-			if(!gyt.equals("")||!bj.equals(""))
-			
-				gy="("+2+"="+gyt+bj+")";
-			
 			Intent intent=new Intent();
 			intent.putExtra("device", connectBluetoothDevice);
-			intent.putExtra("time", time);
-			intent.putExtra("gy", gy);
 			this.setResult(RESULT_OK, intent);
 			this.finish();
 		
 		
-	}
-	public void  bluetoothset(View v)
-	{
-		
-		View bluetoothsetlayout=(View)findViewById(R.id.bluetoothsetlayout);
-		View scanNewDevBut=(View)findViewById(R.id.scanNewDevBut);
-		bluetoothsetlayout.setVisibility(bluetoothsetlayout.getVisibility()==View.VISIBLE?View.GONE:View.VISIBLE);
-		scanNewDevBut.setVisibility(scanNewDevBut.getVisibility()==View.VISIBLE?View.GONE:View.VISIBLE);
 	}
 	public void scanDevice(View v)
 	{
@@ -176,13 +130,5 @@ public class setingActivity extends Activity
 			bluetoothAdapter.cancelDiscovery();
 		bluetoothAdapter.startDiscovery();
 	}
-	//	@Override
-//	public boolean onKey(View v, int keyCode, KeyEvent event) {
-//		// TODO Auto-generated method stub
-////		if(event.ACTION_UP)
-////		{
-////			Toast.makeText(this, "~~~~~~~", Toast.LENGTH_LONG).show();
-////		}
-////		return false;
-//	}
+
 }
