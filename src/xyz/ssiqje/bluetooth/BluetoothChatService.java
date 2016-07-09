@@ -404,6 +404,7 @@ public class BluetoothChatService implements Parcelable{
                 try {
                     // Read from the InputStream
                     bytes = mmInStream.read(buffer);
+                    
                     Log.i("info", "读到一个数据");
                     // Send the obtained bytes to the UI Activity
                     mHandler.obtainMessage(MainActivity.MESSAGE_READ, bytes, -1, buffer)

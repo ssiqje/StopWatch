@@ -1,5 +1,6 @@
 package xyz.ssiqje.speendtest;
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -76,22 +77,33 @@ public class MainActivity extends Activity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case MESSAGE_READ:
+				String[] data = null;
+				String readMessage=null;
 				byte[] readBuf = (byte[]) msg.obj;
 				// construct a string from the valid bytes in the buffer
-
-				String readMessage = new String(readBuf, 0, msg.arg1);
-				if (readMessage.startsWith("(") && readMessage.endsWith(")")) {
-					Log.i("info", "接收到一个正确的数据" + "~" + readMessage);
-					readMessage = new String(readBuf, 1, (msg.arg1 - 2));
-					Log.i("info", "去头尾后的数据" + "~" + readMessage);
-				} else {
-					Log.i("info", "接收到一个错误的数据");
-					break;
+				try {
+					readMessage=new String(readBuf, 0, msg.arg1, "UTF-8");
+					if (readMessage.startsWith("(") && readMessage.endsWith(")")) 
+					{
+						readMessage = new String(readBuf, 1, (msg.arg1 - 2));
+						data = readMessage.split("=");
+						if(data.length!=9)
+						{
+							Toast.makeText(MainActivity.this, "参数不全！", Toast.LENGTH_LONG).show();
+							break;
+						}
+					} 
+					else 
+					{
+						Toast.makeText(MainActivity.this, "参数格式不正确！", Toast.LENGTH_LONG).show();
+						break;
+					}
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				String[] data = readMessage.split("=");
-				for (String string : data) {
-					Log.i("info", "~" + string + "~");
-				}
+				
+				
 				if (sdppoint != null) {
 					AnimationSet animation = new AnimationSet(true);
 					RotateAnimation rotate = new RotateAnimation(
@@ -131,8 +143,8 @@ public class MainActivity extends Activity {
 						.setImageResource(electricquantityImgList[(Integer
 								.parseInt(data[5])) ]);
 				totalKMTv.setText("Total:" + data[7] + "KM");
-				lightlivilimg.setImageResource(data[8].equals("0")?R.drawable.liang0:data[8].equals("1")?R.drawable.liang1:
-											   data[8].equals("2")?R.drawable.liang2:R.drawable.liang3);
+				lightlivilimg.setImageResource(data[8].equals("0")?R.drawable.liang1:
+											   data[8].equals("1")?R.drawable.liang2:R.drawable.liang3);
 
 				break;
 			case MESSAGE_DEVICE_NAME:
@@ -258,8 +270,7 @@ BroadcastReceiver mainuiReceiver =new BroadcastReceiver() {
 												R.drawable.electricquantity4, 
 												R.drawable.electricquantity5,
 												R.drawable.electricquantity6 };
-		lightlivilimgList=new int []{R.drawable.liang0,
-									 R.drawable.liang1,
+		lightlivilimgList=new int []{R.drawable.liang1,
 									 R.drawable.liang2,
 									 R.drawable.liang3};
 		totalKMTv = (TextView) findViewById(R.id.totalKM_Tv);

@@ -160,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:onClick="seting"
-                android:text="返回" />
+                android:text="确定" />
         </LinearLayout>
 
         <TextView
