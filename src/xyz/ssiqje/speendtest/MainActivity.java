@@ -143,8 +143,8 @@ public class MainActivity extends Activity {
 						.setImageResource(electricquantityImgList[(Integer
 								.parseInt(data[5])) ]);
 				totalKMTv.setText("Total:" + data[7] + "KM");
-				lightlivilimg.setImageResource(data[8].equals("0")?R.drawable.liang1:
-											   data[8].equals("1")?R.drawable.liang2:R.drawable.liang3);
+				lightlivilimg.setImageResource(data[8].equals("1")?R.drawable.liang1:
+											   data[8].equals("2")?R.drawable.liang2:R.drawable.liang3);
 
 				break;
 			case MESSAGE_DEVICE_NAME:
